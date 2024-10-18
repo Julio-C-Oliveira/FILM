@@ -4,6 +4,8 @@ import pathlib
 import subprocess
 import argparse
 
+### Parse para obter parametros por fora
+
 parser = argparse.ArgumentParser()
 parser.add_argument("--datapath", type=pathlib.Path, required=True)
 
@@ -19,12 +21,15 @@ parser.add_argument("--frequency_known", action="store_true")
 
 args = parser.parse_args()
 
+### 
 
 beamsearch_rust_dir = pathlib.Path(__file__).parent / "beamsearch_rust"
 cargo_path = subprocess.run(["which", "cargo"], stdout=subprocess.PIPE).stdout.decode(
     "utf-8"
 )[:-1]
 process_env = os.environ.copy()
+
+###
 
 print("Running beamsearch with the following args", args)
 process = subprocess.Popen(
@@ -52,6 +57,8 @@ process = subprocess.Popen(
     stderr=pathlib.Path("stderr.log").open("w"),
     env=process_env,
 )
+
+### 
 
 while True:
     time.sleep(1)
