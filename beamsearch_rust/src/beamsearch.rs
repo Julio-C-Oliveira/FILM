@@ -43,7 +43,7 @@ impl Beam {
         perplexity: f64,
         no_repeat_ngram: Option<Vec<i64>>,
     ) -> Beam {
-        let mut state = self.state.copy();
+        let state = self.state.copy();
         let _ = state
             .i(sent_idx as i64)
             .i(self.lengths[sent_idx] as i64)
@@ -572,7 +572,7 @@ fn beamsearch(
             }
 
             let mut final_score = diversity_score.copy();
-            let mut ppl_scores = Tensor::zeros_like(&final_score);
+            let ppl_scores = Tensor::zeros_like(&final_score);
             for (beam_idx, beam) in group.beams.iter().enumerate() {
                 let _ = ppl_scores.i(beam_idx as i64).fill_(reduce_beam_perplexity(
                     &options.beam_perplexity_scoring,

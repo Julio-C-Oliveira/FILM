@@ -24,9 +24,11 @@ args = parser.parse_args()
 ### 
 
 beamsearch_rust_dir = pathlib.Path(__file__).parent / "beamsearch_rust"
+print(f"\nBeamSearch Rust Dir: {beamsearch_rust_dir}\n")
 cargo_path = subprocess.run(["which", "cargo"], stdout=subprocess.PIPE).stdout.decode(
     "utf-8"
 )[:-1]
+print(f"\nCargo Path aqui: {cargo_path}\n")
 process_env = os.environ.copy()
 
 ###
